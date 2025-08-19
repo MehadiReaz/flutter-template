@@ -1,0 +1,35 @@
+# Build configuration
+targets:
+  $default:
+    sources:
+      - lib/**
+      - test/**
+    builders:
+      # Injectable code generation
+      injectable_generator:injectable_builder:
+        generate_for:
+          - lib/core/di/dependency_injection.dart
+      
+      # JSON serialization
+      json_serializable:
+        generate_for:
+          - lib/features/**/models/*.dart
+          - lib/shared/models/*.dart
+      
+      # Retrofit API client generation
+      retrofit_generator:
+        generate_for:
+          - lib/core/network/api_service.dart
+          - lib/features/**/data/datasources/*_api_service.dart
+      
+      # Freezed data classes
+      freezed:
+        generate_for:
+          - lib/features/**/domain/entities/*.dart
+          - lib/features/**/data/models/*.dart
+      
+      # Hive type adapters
+      hive_generator:
+        generate_for:
+          - lib/features/**/data/models/*.dart
+          - lib/core/storage/models/*.dart
